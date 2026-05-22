@@ -38,4 +38,4 @@ jobs:
           echo "1. github: Informações sobre o repositório, evento, etc."
           echo "2. env: Variáveis de ambiente definidas no workflow."
           echo "3. secrets: Variáveis de ambiente seguras para armazenar segredos."
-          echo "4. runner: Informações sobre o runner onde o trabalho está sendo
+          echo "4. runner: Informações sobre o runner onde o trabalho está sendo"
