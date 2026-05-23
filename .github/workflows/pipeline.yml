@@ -18,7 +18,7 @@ jobs:
       - name: Executar Build
         run: echo "Buildando projeto java...."
 
-      - name: "Executar Deploy"
+      - name: Executar Deploy
         run: |
           echo "Realizando o deploy ${{ runner.os }}"
           echo "Diretorio atual: $(pwd)"
