@@ -1,41 +1,35 @@
-name: "Estrutura de diretorios e arquivos"
+name: Mundo Azul API Comum
+
 on:
   push:
+    branches: [main, develop]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
-env:
-  NODE_ENV: "18"
-
 jobs:
-  demostrando-estrurura:
-    name: Demonstrando a estrutura de diretórios e arquivos
-    runs-on: ubuntu-latest
+  hello-ma:
+    runs-on: ububtu-latest
 
     steps:
-      - name: "Checkout do código"
+      - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Mostrar estrutura .github/workflows
-        run: |
-          echo "Estrutura de diretórios e arquivos:"
-          ls -la .github/workflows
-          echo ""
-          echo "Total workflows: $(ls -la .github/workflows | wc -l)"
+      - name: Executar Build
+        run: echo "Buildando projeto java...."
 
-      - name: Elementos obrigatorios do workflow
+      - name: "Executar Deploy"
         run: |
-          echo "Elementos obrigatórios do workflow:"
-          echo "1. name: O nome do workflow."
-          echo "2. on: O gatilho que inicia o workflow (ex: push, pull_request, etc)."
-          echo "3. jobs: A definição dos trabalhos a serem executados."
-          echo "4. runs-on: O ambiente onde o trabalho será executado."
+          echo "Realizando o deploy ${{ runner.os }}"
+          echo "Diretorio atual: $(pwd)"
+          echo "Data atual: ${date}"
+          echo "Usuario: $(whoami)"
 
-      - name: Variáveis de Contexto
+      - name: Listar workspace
+        run: ls -lta
+
+      - name: Clear WorkSpace
         run: |
-          echo "Variáveis de Contexto:"
-          echo " Variavel env: {{ env.NODE_ENV }} "
-          echo "1. github: Informações sobre o repositório, evento, etc."
-          echo "2. env: Variáveis de ambiente definidas no workflow."
-          echo "3. secrets: Variáveis de ambiente seguras para armazenar segredos."
-          echo "4. runner: Informações sobre o runner onde o trabalho está sendo"
+          echo "Limpando WorkSpace"
+          echo "API já disponível para utilização"
+          echo "Worfklow realizado com SUCESSO"
