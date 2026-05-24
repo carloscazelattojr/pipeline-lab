@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  hello-ma:
+  mundoazul-api-comum:
     runs-on: ububtu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "Realizando o deploy ${{ runner.os }}"
           echo "Diretorio atual: $(pwd)"
-          echo "Data atual: ${date}"
+          echo "Data atual: $(date)"
           echo "Usuario: $(whoami)"
 
       - name: Listar workspace
