@@ -1,35 +1,32 @@
-name: Mundo Azul API Comum
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+name: Jobs Paralelo vs Sequencial
+on: [push]
 
 jobs:
-  mundoazul-api-comum:
+  lint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Lint
+        run: echo "Lint OK"
 
-      - name: Executar Build
-        run: echo "Buildando projeto java...."
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Testes
+        run: echo "Testes OK"
 
-      - name: Executar Deploy
-        run: |
-          echo "Realizando o deploy ${{ runner.os }}"
-          echo "Diretorio atual: $(pwd)"
-          echo "Data atual: $(date)"
-          echo "Usuario: $(whoami)"
+  build:
+    needs: [lint, testes]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: echo "Build executado"
 
-      - name: Listar workspace
-        run: ls -lta
-
-      - name: Clear WorkSpace
-        run: |
-          echo "Limpando WorkSpace"
-          echo "API já disponível para utilização"
-          echo "Worfklow realizado com SUCESSO"
+  publicar:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publicar (simulado)
+        run: echo "Publicação concluída"
