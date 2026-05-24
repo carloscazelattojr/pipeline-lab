@@ -9,7 +9,7 @@ on:
 
 jobs:
   mundoazul-api-comum:
-    runs-on: ububtu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout código
