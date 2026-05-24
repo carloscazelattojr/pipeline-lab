@@ -1,48 +1,32 @@
-name: "Estrutura de Diretórios e Arquivos"
+name: Push Trigger Workflow
 
-# Define quando o workflow será executado
+### Executa apenas em push
 on:
-  push: # Executa quando houver push
-    branches: [main] # Apenas na branch main
-  workflow_dispatch: # Permite execução manual pela interface
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "src/**" # CRIAR ESSES ARQUIVOS PARA FUNCIONAR
+      - "README.md" # CRIAR ESSES ARQUIVOS PARA FUNCIONAR
 
-# Variáveis de ambiente globais do workflow
-env:
-  NODE_VERSION: "18" # Disponível em todos os jobs e steps
-
-# Define os trabalhos (jobs) que serão executados
 jobs:
-  demonstrar-estrutura: # ID único do job
-    name: "Demonstrar Estrutura Básica" # Nome exibido na interface
-    runs-on: ubuntu-latest # Sistema operacional do runner
+  push-job:
+    runs-on: ubuntu-latest
 
-    # Lista de etapas (steps) executadas sequencialmente
     steps:
-      # Step 1: Faz checkout do código do repositório
-      - name: Checkout do código
-        uses: actions/checkout@v4 # Usa action pré-construída
+      - name: Checkout código
+        uses: actions/checkout@v4
 
-      # Step 2: Lista arquivos no diretório .github/workflows
-      - name: Mostrar estrutura .github/workflows
-        run: | # Executa comandos shell
-          echo "=== ESTRUTURA DO DIRETÓRIO .github/workflows ==="
-          ls -la .github/workflows/
-          echo ""
-          echo "Total de workflows: $(ls -1 .github/workflows/*.y*ml 2>/dev/null | wc -l)"
-
-      # Step 3: Mostra os 3 elementos obrigatórios de um workflow
-      - name: Elementos obrigatórios do workflow
+      - name: Informações do Push
         run: |
-          echo "=== ELEMENTOS OBRIGATÓRIOS ==="
-          echo "1. name: Nome do workflow"
-          echo "2. on: Eventos de trigger (push, workflow_dispatch)"
-          echo "3. jobs: Tarefas a executar"
+          echo "Workflow disparado por PUSH"
+          echo "Commit: ${{ github.sha }}"
+          echo "Autor: ${{ github.actor }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Repositório: ${{ github.repository }}"
 
-      # Step 4: Demonstra uso de variáveis e contextos do GitHub
-      - name: Variáveis e contextos
+      - name: Listar arquivos modificados
         run: |
-          echo "=== VARIÁVEIS E CONTEXTOS ==="
-          echo "Variável env: ${{ env.NODE_VERSION }}"      # Acessa variável de ambiente
-          echo "Repositório: ${{ github.repository }}"      # Contexto do GitHub
-          echo "Branch: ${{ github.ref_name }}"             # Nome da branch
-          echo "Actor: ${{ github.actor }}"                 # Usuário que executou
+          echo "Arquivos no repositório:"
+          ls -la
